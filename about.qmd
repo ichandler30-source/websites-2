@@ -1,5 +1,7 @@
 ---
 title: "About"
 ---
+My name is **Isabella Chandler**, and I graduated from *Bartram HighSchool*.
+## About Me
 
-About this site
+[Kane’s Free Data Science Bootcamp](https://bootcamp.davidkane.info)
