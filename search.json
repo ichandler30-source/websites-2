@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "sources.html",
+    "href": "sources.html",
+    "title": "Sources",
+    "section": "",
+    "text": "An overview of sources used in my project.\nThese are my sources. Here are some challenges. Quarto websites are awesome."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Billboard Graphic",
@@ -12,5 +19,12 @@
     "title": "About",
     "section": "",
     "text": "My name is Isabella Chandler, and I graduated from Bartram HighSchool. ## About Me\nKane’s Free Data Science Bootcamp"
+  },
+  {
+    "objectID": "process_data.R.html",
+    "href": "process_data.R.html",
+    "title": "Untitled",
+    "section": "",
+    "text": "library(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.1     ✔ readr     2.2.0\n✔ forcats   1.0.1     ✔ stringr   1.6.0\n✔ ggplot2   4.0.3     ✔ tibble    3.3.1\n✔ lubridate 1.9.5     ✔ tidyr     1.3.2\n✔ purrr     1.2.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nbillboard_long &lt;- tidyr::billboard |&gt;\n  pivot_longer(\n    cols = starts_with(\"wk\"),\n    names_to = \"week\",\n    names_prefix = \"wk\",\n    values_to = \"rank\",\n    values_drop_na = TRUE\n  ) |&gt;\n  mutate(week = as.integer(week))\n\nlongest_runs &lt;- billboard_long |&gt;\n  count(artist, track, name = \"weeks_on_chart\") |&gt;\n  slice_max(weeks_on_chart, n = 10, with_ties = FALSE)\n\ntop_songs &lt;- billboard_long |&gt;\n  semi_join(longest_runs, by = c(\"artist\", \"track\"))\n\nwrite_rds(top_songs, file = \"clean_data.rds\")"
   }
 ]
