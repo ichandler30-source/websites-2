@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Billboard Graphic",
+    "section": "",
+    "text": "library(tidyverse)\n\n\nbillboard_long &lt;- tidyr::billboard |&gt;\n  pivot_longer(\n    cols = starts_with(\"wk\"),\n    names_to = \"week\",\n    names_prefix = \"wk\",\n    values_to = \"rank\",\n    values_drop_na = TRUE\n  ) |&gt;\n  mutate(week = as.integer(week))\n\nlongest_runs &lt;- billboard_long |&gt;\n  count(artist, track, name = \"weeks_on_chart\") |&gt;\n  slice_max(weeks_on_chart, n = 10, with_ties = FALSE)\n\nbillboard_plot &lt;- billboard_long |&gt;\n  semi_join(longest_runs, by = c(\"artist\", \"track\")) |&gt;\n  ggplot(aes(x = week, y = rank, color = track, group = track)) +\n  geom_line(linewidth = 1.2) +\n  geom_point(size = 1.5) +\n  scale_y_reverse() +\n  scale_color_viridis_d() +\n  labs(\n    title = \"The Long Game\",\n    subtitle = \"Weekly rankings of the 10 longest-running songs\",\n    x = \"Week on the chart\",\n    y = \"Billboard rank (lower is better)\",\n    color = \"Song\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"bottom\")\n\nggsave(\"billboard-plot.png\", plot = billboard_plot, width = 10, height = 6, dpi = 300)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  }
+]
